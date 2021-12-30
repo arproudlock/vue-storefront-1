@@ -1,0 +1,198 @@
+{
+  "au": {
+    "name": "Australia",
+    "contactInformation": {
+      "phone": "03 6118 7190",
+      "email": "hello@hulii.com"
+    },
+    "shipping": {
+      "standard": {
+        "minDays": 3,
+        "maxDays": 5,
+        "carrier": "Australia Post"
+      },
+      "express": {
+        "minDays": 2,
+        "maxDays": 4,
+        "carrier": "Australia Post Express"
+      },
+      "countries": [
+        {
+          "name": "Australia",
+          "code": "AU"
+        }
+      ]
+    }
+  },
+  "hk": {
+    "name": "Hong Kong",
+    "contactInformation": {
+      "phone": "3001 1204",
+      "email": "hello@hulii.com",
+      "whatsapp": "852 9690 5036"
+    },
+    "shipping": {
+      "express": {
+        "minDays": 2,
+        "maxDays": 3,
+        "carrier": "S.F. Express"
+      },
+      "standard": {
+        "minDays": 2,
+        "maxDays": 3,
+        "carrier": "S.F. Express"
+      },
+      "countries": [
+        {
+          "name": "Hong Kong SAR China",
+          "code": "HK"
+        }
+      ]
+    }
+  },
+  "my": {
+    "name": "Malaysia",
+    "contactInformation": {
+      "phone": "016-299 4415",
+      "email": "hello@hulii.com"
+    },
+    "shipping": {
+      "standard": {
+        "minDays": 6,
+        "maxDays": 6,
+        "carrier": "LWE"
+      },
+      "countries": [
+        {
+          "name": "Malaysia",
+          "code": "MY"
+        }
+      ]
+    }
+  },
+  "sg": {
+    "name": "Singapore",
+    "contactInformation": {
+      "phone": "800 492 2452",
+      "email": "hello@hulii.com"
+    },
+    "shipping": {
+      "standard": {
+        "minDays": 3,
+        "maxDays": 4,
+        "carrier": "Singapore post"
+      },
+      "express": {
+        "minDays": 2,
+        "maxDays": 3,
+        "carrier": "FedEx"
+      },
+      "countries": [
+        {
+          "name": "Singapore",
+          "code": "SG"
+        }
+      ]
+    }
+  },
+  "us": {
+    "name": "United States",
+    "contactInformation": {
+      "phone": "888 5222 570",
+      "email": "hello@hulii.com"
+    },
+    "shipping": {
+      "standard": {
+        "minDays": 7,
+        "maxDays": 9,
+        "carrier": "FedEx"
+      },
+      "express": {
+        "minDays": 2,
+        "maxDays": 5,
+        "carrier": "FedEx"
+      },
+      "countries": [
+        {
+          "name": "United States",
+          "code": "US"
+        }
+      ]
+    }
+  },
+  "uk": {
+    "name": "United Kingdon",
+    "contactInformation": {
+      "phone": "888 5222 570",
+      "email": "hello@hulii.com"
+    },
+    "shipping": {
+      "standard": {
+        "minDays": 7,
+        "maxDays": 9,
+        "carrier": "FedEx"
+      },
+      "express": {
+        "minDays": 2,
+        "maxDays": 5,
+        "carrier": "FedEx"
+      },
+      "countries": [
+        {
+          "name": "United Kingdom",
+          "code": "UK"
+        }
+      ]
+    }
+  },
+  "nz": {
+    "name": "New Zealand",
+    "contactInformation": {
+      "phone": "+64 9 887 9800",
+      "email": "hello@hulii.com"
+    },
+    "shipping": {
+      "standard": {
+        "minDays": 3,
+        "maxDays": 5,
+        "carrier": "FedEx"
+      },
+      "express": {
+        "minDays": 3,
+        "maxDays": 5,
+        "carrier": "FedEx"
+      },
+      "countries": [
+        {
+          "name": "New Zealand",
+          "code": "NZ"
+        }
+      ]
+    }
+  },
+  "no": {
+    "name": "Norway",
+    "contactInformation": {
+      "phone": "+64 9 887 9800",
+      "email": "hello@hulii.com"
+    },
+    "shipping": {
+      "standard": {
+        "minDays": 3,
+        "maxDays": 5,
+        "carrier": "FedEx"
+      },
+      "express": {
+        "minDays": 3,
+        "maxDays": 5,
+        "carrier": "FedEx"
+      },
+      "countries": [
+        {
+          "name": "Norway",
+          "code": "NO"
+        }
+      ]
+    }
+  }
+}

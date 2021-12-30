@@ -1,0 +1,267 @@
+{
+    "seller": {
+        "name": "XYZ",
+        "total_review": 56,
+        "description": "Short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris maximus nulla non magna vehicula imperdiet efficitur non nunc. Vivamus neque libero, rhoncus quis consequat sed, fringilla vitae risus."
+    },
+    "SellerProfile": {
+        "seller_id": 1,
+        "name": "Becextech",
+        "location": "Melbourne, Australia",
+        "seller_since": "On Hulli Since October 2020",
+        "short_description": "We sell many kinds of products including iPhones, iPads, accessories and more. We hope you'll enjoy a good shopping experience here.",
+        "description": "We sell many kinds of products including iPhones, iPads, accessories and more. We hope you'll enjoy a good shopping experience here.",
+        "highlights": [
+            "Gift packaging options",
+            "Free Express Shipping",
+            "Top Rated Seller"
+        ],
+        "announcement": "To recieve your Christmas deliveries on time, we ask you place your orders no later than Thursday 26th November 2020.",
+        "logo": "",
+        "sales_to_date": "Last updated on 04 Nov, 2020",
+        "overall_star_rating": 1959,
+        "feedback_ratings": [
+            {
+                "rating_count": 4.5,
+                "total_rating": "2,456",
+                "comment": "Value for money"
+            },
+            {
+                "rating_count": 4.5,
+                "total_rating": "2,456",
+                "comment": "Value for money"
+            },
+            {
+                "rating_count": 4.5,
+                "total_rating": "2,456",
+                "comment": "Value for money"
+            },
+            {
+                "rating_count": 4.5,
+                "total_rating": "2,456",
+                "comment": "Value for money"
+            },
+            {
+                "rating_count": 4.5,
+                "total_rating": "2,456",
+                "comment": "Value for money"
+            },
+            {
+                "rating_count": 4.5,
+                "total_rating": "2,456",
+                "comment": "Value for money"
+            },
+            {
+                "rating_count": 4.5,
+                "total_rating": "2,456",
+                "comment": "Value for money"
+            },
+            {
+                "rating_count": 4.5,
+                "total_rating": "2,456",
+                "comment": "Value for money"
+            }
+        ],
+        "seller_reviews": "",
+        "products": "",
+        "categories_available": "iPhones, iPads, and accessories."
+    },
+    "product": {
+        "rating_count": 4.5,
+        "rating_desc": "Average of 180 review from the past 6 months",
+        "reviews": [
+            {
+                "reviewer_name": "Emma",
+                "reviewer_time": "2 months ago",
+                "rating_count": 4.5,
+                "comment": "The product arrived so fast to me and came exactly as described! It's been doing great since I starting using it. I will definitely look to backmarket.com for my future purchases for refurbished tech.",
+                "lists": [
+                    {
+                        "title": "Value for money"
+                    },
+                    {
+                        "title": "Overall performance"
+                    },
+                    {
+                        "title": "Outside appearance"
+                    },
+                    {
+                        "title": "Accessories"
+                    },
+                    {
+                        "title": "Battery"
+                    },
+                    {
+                        "title": "Lens & Camera"
+                    },
+                    {
+                        "title": "Packaging and cleanliness"
+                    },
+                    {
+                        "title": "Shipping"
+                    }
+                ]
+            },
+            {
+                "reviewer_name": "Emma",
+                "reviewer_time": "2 months ago",
+                "rating_count": 4.5,
+                "comment": "The product arrived so fast to me and came exactly as described! It's been doing great since I starting using it. I will definitely look to backmarket.com for my future purchases for refurbished tech.",
+                "lists": [
+                    {
+                        "title": "Value for money"
+                    },
+                    {
+                        "title": "Overall performance"
+                    },
+                    {
+                        "title": "Outside appearance"
+                    },
+                    {
+                        "title": "Accessories"
+                    },
+                    {
+                        "title": "Battery"
+                    },
+                    {
+                        "title": "Lens & Camera"
+                    },
+                    {
+                        "title": "Packaging and cleanliness"
+                    },
+                    {
+                        "title": "Shipping"
+                    }
+                ]
+            },
+            {
+                "reviewer_name": "Emma",
+                "reviewer_time": "2 months ago",
+                "rating_count": 4.5,
+                "comment": "The product arrived so fast to me and came exactly as described! It's been doing great since I starting using it. I will definitely look to backmarket.com for my future purchases for refurbished tech.",
+                "lists": [
+                    {
+                        "title": "Value for money"
+                    },
+                    {
+                        "title": "Overall performance"
+                    },
+                    {
+                        "title": "Outside appearance"
+                    },
+                    {
+                        "title": "Accessories"
+                    },
+                    {
+                        "title": "Battery"
+                    },
+                    {
+                        "title": "Lens & Camera"
+                    },
+                    {
+                        "title": "Packaging and cleanliness"
+                    },
+                    {
+                        "title": "Shipping"
+                    }
+                ]
+            },
+            {
+                "reviewer_name": "Emma",
+                "reviewer_time": "2 months ago",
+                "rating_count": 4.5,
+                "comment": "The product arrived so fast to me and came exactly as described! It's been doing great since I starting using it. I will definitely look to backmarket.com for my future purchases for refurbished tech.",
+                "lists": [
+                    {
+                        "title": "Value for money"
+                    },
+                    {
+                        "title": "Overall performance"
+                    },
+                    {
+                        "title": "Outside appearance"
+                    },
+                    {
+                        "title": "Accessories"
+                    },
+                    {
+                        "title": "Battery"
+                    },
+                    {
+                        "title": "Lens & Camera"
+                    },
+                    {
+                        "title": "Packaging and cleanliness"
+                    },
+                    {
+                        "title": "Shipping"
+                    }
+                ]
+            },
+            {
+                "reviewer_name": "Emma",
+                "reviewer_time": "2 months ago",
+                "rating_count": 4.5,
+                "comment": "The product arrived so fast to me and came exactly as described! It's been doing great since I starting using it. I will definitely look to backmarket.com for my future purchases for refurbished tech.",
+                "lists": [
+                    {
+                        "title": "Value for money"
+                    },
+                    {
+                        "title": "Overall performance"
+                    },
+                    {
+                        "title": "Outside appearance"
+                    },
+                    {
+                        "title": "Accessories"
+                    },
+                    {
+                        "title": "Battery"
+                    },
+                    {
+                        "title": "Lens & Camera"
+                    },
+                    {
+                        "title": "Packaging and cleanliness"
+                    },
+                    {
+                        "title": "Shipping"
+                    }
+                ]
+            },
+            {
+                "reviewer_name": "Emma",
+                "reviewer_time": "2 months ago",
+                "rating_count": 4.5,
+                "comment": "The product arrived so fast to me and came exactly as described! It's been doing great since I starting using it. I will definitely look to backmarket.com for my future purchases for refurbished tech.",
+                "lists": [
+                    {
+                        "title": "Value for money"
+                    },
+                    {
+                        "title": "Overall performance"
+                    },
+                    {
+                        "title": "Outside appearance"
+                    },
+                    {
+                        "title": "Accessories"
+                    },
+                    {
+                        "title": "Battery"
+                    },
+                    {
+                        "title": "Lens & Camera"
+                    },
+                    {
+                        "title": "Packaging and cleanliness"
+                    },
+                    {
+                        "title": "Shipping"
+                    }
+                ]
+            }
+        ]
+    }
+}

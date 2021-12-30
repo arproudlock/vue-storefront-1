@@ -1,0 +1,62 @@
+{
+  "phones&accessories": {
+    "name": "Phones & Accessories",
+    "color": "hulii-orange",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/smartphones.svg"
+  },
+  "audio&music": {
+    "name": "Audio & Music",
+    "color": "hulii-turquoise",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/audio.svg"
+  },
+  "wearables": {
+    "name": "Wearables",
+    "color": "hulii-turquoise",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/wearables.svg"
+  },
+  "computers": {
+    "name": "Computers",
+    "color": "hulii-yellow",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/computers.svg"
+  },
+  "phoneaccessories": {
+    "name": "Phone Accessories",
+    "color": "hulii-orange",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/phone-accessories.svg"
+  },
+  "accessories": {
+    "name": "Accessories",
+    "color": "hulii-orange",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/phone-accessories.svg"
+  },
+  "mobilephones": {
+    "name": "Mobile Phones",
+    "color": "hulii-orange",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/smartphones.svg"
+  },
+  "smartwatches": {
+    "name": "Smart Watches",
+    "color": "hulii-turquoise",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/wearables.svg"
+  },
+  "headphones": {
+    "name": "Headphones",
+    "color": "hulii-turquoise",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/audio.svg"
+  },
+  "tablets&ereaders": {
+    "name": "Tablets & eReaders",
+    "color": "hulii-turquoise",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/tablet.svg"
+  },
+  "tablets": {
+    "name": "Tablets",
+    "color": "hulii-turquoise",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/tablet.svg"
+  },
+  "ereaders": {
+    "name": "eReaders",
+    "color": "hulii-turquoise",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/tablet.svg"
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "phones&accessories": {
+    "name": "Phones & Accessories",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/smartphones.svg"
+  },
+  "audio&music": {
+    "name": "Audio & Music",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/audio.svg"
+  },
+  "wearables": {
+    "name": "Wearables",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/wearables.svg"
+  },
+  "applewatches": {
+    "name": "Apple Watches",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/wearables.svg"
+  },
+  "samsungwatches": {
+    "name": "Samsung Watches",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/wearables.svg"
+  },
+  "computers": {
+    "name": "Computers",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/computers.svg"
+  },
+  "phoneaccessories": {
+    "name": "Phone Accessories",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/phone-accessories.svg"
+  },
+  "accessories": {
+    "name": "Accessories",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/phone-accessories.svg"
+  },
+  "phonecases": {
+    "name": "Phone Cases",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/phone-accessories.svg"
+  },
+  "mobilephones": {
+    "name": "Mobile Phones",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/smartphones.svg"
+  },
+  "smartwatches": {
+    "name": "Smart Watches",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/wearables.svg"
+  },
+  "headphones": {
+    "name": "Headphones",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/audio.svg"
+  },
+  "tablets&ereaders": {
+    "name": "Tablets & eReaders",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/tablet.svg"
+  },
+  "tablets": {
+    "name": "Tablets",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/tablet.svg"
+  },
+  "appletablets": {
+    "name": "Apple Tablets",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/tablet.svg"
+  },
+  "samsungtablets": {
+    "name": "Samsung Tablets",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/tablet.svg"
+  },
+  "ereaders": {
+    "name": "eReaders",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/tablet.svg"
+  },
+  "computersandlaptops": {
+    "name": "Computers & Laptops",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/laptop.svg"
+  },
+  "laptops": {
+    "name": "Laptops",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/laptop.svg"
+  },
+  "applemacbook": {
+    "name": "Apple Macbook",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/laptop.svg"
+  },
+  "applemacbookpro": {
+    "name": "Apple Macbook Pro",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/laptop.svg"
+  },
+  "applemacbookair": {
+    "name": "Apple Macbook Air",
+    "color": "hulii-purple",
+    "icon": "https://ik.imagekit.io/yi7qlqdvr/hulii/web-assets/menu/laptop.svg"
+  }
+}

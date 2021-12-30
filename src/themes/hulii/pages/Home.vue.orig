@@ -1,0 +1,331 @@
+<template>
+  <div id="home">
+    <quick-featured />
+
+    <main-slider class="home--section" :slides="mainBanner" />
+
+    <uSP-featured
+      class="home--section"
+      :usp-one-title="$t('12 Months Warranty')"
+      :usp-one-body="$t('Any Issues? Our comprehensive warranty is here to help.')"
+      usp-one-link="/help-center/warranty"
+      :usp-two-title="$t('30 Days Free Returns')"
+      :usp-two-body="$t('No questions asked free returns within the first 30 days.')"
+      usp-two-link="/help-center/returns"
+      :usp-three-title="$t('Free Shipping')"
+      :usp-three-body="$t('Free shipping on all orders through Hulii.')"
+      usp-three-link="/help-center/shipping-and-delivery"
+    />
+
+    <shop-our-categories class="home--section" :title="$t('Shop Our Categories')" :data="shopOurCategories" />
+    <!-- Category Sliders from contentful -->
+    <div v-for="cat in categoryCarousels" :key="cat.id">
+      <category-slider class="home--section" :title="$t(cat.title)" :cats="cat.items" :config="sliderConfig" />
+    </div>
+    <!-- <category-slider class="home--section" :title="$t(categoryCarouselOne.title)" :cats="categoryCarouselOne.items" :config="sliderConfig" />
+
+    <category-slider class="home--section" :title="$t(categoryCarouselTwo.title)" :cats="categoryCarouselTwo.items" :config="sliderConfig" /> -->
+
+    <!-- <products-slider class="home--section" :title="$t(productCarouselOne.title)" :products="productCarouselOne.items" :config="sliderConfig" />
+
+    <products-slider class="home--section" :title="$t(productCarouselTwo.title)" :products="productCarouselTwo.items" :config="sliderConfig" /> -->
+
+<<<<<<< HEAD
+    <featured-slides-two class="home--section" :data="featuredDeals" :title="$t('Featured Deals')" />
+
+    <brand-feature class="home--section" :data="brandFeature" />
+
+=======
+>>>>>>> shyam1
+    <!-- <recently-shopped-box v-if="store === 'au'" /> -->
+  </div>
+</template>
+
+<script>
+// query constructor
+import SearchQuery from '@vue-storefront/core/lib/search/searchQuery'
+import { prepareQuery } from '@vue-storefront/core/modules/catalog/queries/common'
+import { isServer, onlineHelper } from '@vue-storefront/core/helpers'
+import { currentStoreView } from '@vue-storefront/core/lib/multistore'
+
+// Core pages
+import Home from '@vue-storefront/core/pages/Home'
+
+// Theme core components
+import ProductListing from 'theme/components/core/ProductListing'
+import MainSlider from 'theme/components/hulii/blocks/MainSlider/MainSlider'
+import QuickFeatured from 'theme/components/hulii/blocks/Header/QuickFeatured'
+import ProductsSlider from 'theme/components/hulii/ProductsSlider'
+import CategorySlider from 'theme/components/hulii/CategorySlider'
+import FeaturedSlidesTwo from 'theme/components/hulii/blocks/Home/FeaturedDeals'
+import USPFeatured from 'theme/components/hulii/blocks/Home/USPFeatured'
+import ShopOurCategories from 'theme/components/hulii/blocks/Home/ShopOurCategories'
+import LatestDeals from 'theme/components/hulii/blocks/Home/LatestDeals'
+import BrandFeature from 'theme/components/hulii/blocks/Home/BrandFeature'
+import RecentlyShoppedBox from 'src/modules/recently-shopped/components/RecentlyShoppedBox'
+
+// Theme local components
+import PromotedOffers from 'theme/components/theme/blocks/PromotedOffers/PromotedOffers'
+import TileLinks from 'theme/components/theme/blocks/TileLinks/TileLinks'
+import { Logger } from '@vue-storefront/core/lib/logger'
+import { mapGetters } from 'vuex'
+import config from 'config'
+
+export default {
+  mixins: [Home],
+  components: {
+    MainSlider,
+    ProductListing,
+    PromotedOffers,
+    TileLinks,
+    QuickFeatured,
+    ProductsSlider,
+    CategorySlider,
+    FeaturedSlidesTwo,
+    USPFeatured,
+    ShopOurCategories,
+    LatestDeals,
+    BrandFeature,
+    RecentlyShoppedBox
+  },
+  data () {
+    return {
+      store: currentStoreView().storeCode,
+      sliderConfig: {
+        perPage: 2,
+        paginationEnabled: true,
+        loop: true
+      },
+      productData: null,
+      filteredCat: null
+    }
+  },
+  metaInfo () {
+    return {
+      title: 'Refurbished Apple iPhones and Samsung Galaxy'
+    }
+  },
+  computed: {
+    ...mapGetters('user', ['isLoggedIn']),
+    categories () {
+      return this.getCategories
+    },
+    productCarouselOne () {
+      return this.$store.state.homepage.productCarousels[0]
+    },
+    productCarouselTwo () {
+      return this.$store.state.homepage.productCarousels[1]
+    },
+    categoryCarousels () {
+      return this.$store.state.homepage.categoryCarousels
+    },
+    categoryCarouselOne () {
+      return this.$store.state.homepage.categoryCarousels[0]
+    },
+    categoryCarouselTwo () {
+      return this.$store.state.homepage.categoryCarousels[1]
+    },
+    featuredDeals () {
+      return this.$store.state.homepage.featuredDeals
+    },
+    shopOurCategories () {
+      return this.$store.state.homepage.shopCategories
+    },
+    brandFeature () {
+      return this.$store.state.homepage.brandFeature
+    },
+    isOnline () {
+      return onlineHelper.isOnline
+    },
+    mainBanner () {
+      return this.$store.state.homepage.mainBanner
+    }
+  },
+  created () {
+    // Load personal and shipping details for Checkout page from IndexedDB
+    this.$store.dispatch('checkout/load')
+  },
+  mounted () {
+    if (!this.isLoggedIn && localStorage.getItem('redirect')) this.$bus.$emit('modal-show', 'modal-signup')
+  },
+  watch: {
+    isLoggedIn () {
+      const redirectObj = localStorage.getItem('redirect')
+      if (redirectObj) this.$router.push(redirectObj)
+      localStorage.removeItem('redirect')
+    }
+  },
+  async asyncData ({ store, route }) { // this is for SSR purposes to prefetch data
+    Logger.info('Calling asyncData in Home (theme)')()
+    let includeFields = config.entities.productListWithChildren.includeFields // we need configurable_children for filters to work
+    let excludeFields = config.entities.productListWithChildren.excludeFields
+    // let catIncludeFields =
+
+    // Call Contentful Data
+
+    // Main Banner
+    const mainBannerResult = await store.dispatch('contentful/list', {
+      limit: 10,
+      contentType: 'homeMainBanner'
+    })
+
+    if (mainBannerResult.code === 200) {
+      store.state.homepage.mainBanner = mainBannerResult.result.items
+    }
+
+    // Get Carousel Data
+    const productCarouselResult = await store.dispatch('contentful/list', {
+      limit: 10,
+      contentType: 'homeProductCarousel'
+    })
+
+    if (productCarouselResult.code === 200) {
+      const carousels = productCarouselResult.result.items
+      await Promise.all(carousels.map(async (cara) => {
+        let carouselData = {
+          title: cara.fields.productCarouselTitle,
+          items: []
+        }
+        let carouselQuery = new SearchQuery()
+        carouselQuery = carouselQuery.applyFilter({key: 'id', value: {'in': cara.fields.productCarouselProductIDs}})
+        const carouselResult = await store.dispatch('product/list', {
+          query: carouselQuery,
+          size: 8,
+          sort: 'created_at:desc',
+          includeFields: includeFields
+        })
+        if (carouselResult) {
+          carouselData.items = carouselResult.items
+          store.state.homepage.productCarousels.push(carouselData)
+        }
+      }))
+    }
+
+    // Get Category Carousels
+    store.state.homepage.categoryCarousels = [];
+    const categoryCarouselResult = await store.dispatch('contentful/list', {
+      limit: 10,
+      contentType: 'homeCategoryCarousel'
+    })
+
+    if (categoryCarouselResult.code === 200) {
+      const catCarousels = categoryCarouselResult.result.items
+      this.data.filteredCat = 'true'
+      await Promise.all(catCarousels.map(async (cara) => {
+        let carouselData = {
+          title: cara.fields.categoryCarouselTitle,
+          items: []
+        }
+
+        let carouselQuery = new SearchQuery()
+        carouselQuery = carouselQuery.applyFilter({key: 'id', value: {'in': cara.fields.categoryCarouselIDs}})
+        const carouselResult = await store.dispatch('category/list', {
+          query: carouselQuery
+          // size: 5,
+          // sort: 'created_at:desc'
+          // includeFields: includeFields
+        })
+
+        if (carouselResult) {
+          let cats = carouselResult.items
+          let ids = cara.fields.categoryCarouselIDs
+          let filteredCats = cats.filter((op) => {
+            for (var i = 0; i < ids.length; i++) { // iterate over filter
+              if (op.id == ids[i]) {
+                return true; // if this person knows this language
+              }
+            }
+            return false;
+          })
+
+          // filteredCats.sort((a, b) => {
+          //   return ids.indexOf(a) - ids.indexOf(b);
+          // });
+
+          let result = []
+
+          ids.forEach((key) => {
+            var found = false;
+            filteredCats = filteredCats.filter((item) => {
+              if (!found && item.id == key) {
+                result.push(item);
+                found = true;
+                return false;
+              } else { return true; }
+            })
+          })
+
+          carouselData.items = result
+        }
+        // let filteredCats = cats.filter((op) => {
+        //   return cara.fields.categoryCarouselIDs.includes(op.id)// display only the root level (level =1 => Default Category)
+        // })
+        // carouselData.items = filteredCats
+        store.state.homepage.categoryCarousels.push(carouselData);
+      }))
+    }
+
+    // Get Featured Deals Data
+    const featuredDealsResult = await store.dispatch('contentful/list', {
+      limit: 2,
+      contentType: 'homeFeaturedDeals'
+    })
+
+    if (featuredDealsResult.code === 200) {
+      store.state.homepage.featuredDeals = featuredDealsResult.result.items
+    }
+
+    // Get Shop Our Categories Data
+    const shopOurCategoriesResult = await store.dispatch('contentful/list', {
+      limit: 6,
+      contentType: 'homeShopOurCategories'
+    })
+
+    if (shopOurCategoriesResult.code === 200) {
+      store.state.homepage.shopCategories = shopOurCategoriesResult.result.items
+    }
+
+    // Get Brand Feature Data
+    const brandFeatureResult = await store.dispatch('contentful/list', {
+      limit: 1,
+      contentType: 'homeBrandFeature'
+    })
+
+    if (brandFeatureResult.code === 200) {
+      store.state.homepage.brandFeature = brandFeatureResult.result.items
+    }
+  },
+  beforeRouteEnter (to, from, next) {
+    if (!isServer && !from.name) { // Loading products to cache on SSR render
+      next(vm => {
+        let newProductsQuery = prepareQuery({ queryConfig: 'newProducts' })
+        vm.$store.dispatch('product/list', {
+          query: newProductsQuery,
+          size: 8,
+          sort: 'created_at:desc'
+        })
+      })
+    } else {
+      next()
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+  #home {
+    @apply bg-white;
+  }
+  .new-collection {
+    @media (max-width: 767px) {
+      padding-top: 0;
+    }
+  }
+  .home--section {
+    margin-bottom: 50px;
+
+    @screen lg {
+      margin-bottom: 100px;
+    }
+  }
+</style>

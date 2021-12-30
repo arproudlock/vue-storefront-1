@@ -20,7 +20,7 @@
     ],
     "paths": {
       "core/*": ["core/*"],
-      "theme/*": ["src/themes/default/*"],
+      "theme/*": ["src/themes/hulii/*"],
       "core/modules/*": ["./core/modules/*"],
       "@vue-storefront/*": ["./"]
     },

@@ -1,0 +1,1584 @@
+<!-- eslint-disable vue/no-use-v-if-with-v-for -->
+<!-- eslint-disable vue/no-v-html -->
+<template>
+  <div
+    id="product"
+    class="container"
+    itemscope
+    itemtype="http://schema.org/Product"
+  >
+    <div class="product">
+      <breadcrumbs
+        class="product--breadcrumb"
+        :routes="breadcrumbs.routes"
+        :active-route="breadcrumbs.name"
+      />
+<<<<<<< HEAD
+      <trustpilot-micro-score
+        class="product--trustpilot"
+      />
+      <!-- <trustpilot-micro-count
+        class="product--trustpilot"
+      /> -->
+=======
+      <!-- <trustpilot-micro-score
+        class="product--trustpilot"
+      /> -->
+      <trustpilot-micro-count class="product--trustpilot" />
+>>>>>>> shyam1
+      <section class="product--gallery">
+        <div v-if="gallery.length > 1" class="product--thumbnails">
+          <ul class="list-reset">
+            <li
+              v-for="(images, index) in gallery"
+              :key="images.src"
+              class="mb-1"
+              :class="currentGalleryPage === index ? 'chosen-thumbail' : ''"
+            >
+              <img
+                :src="images.src"
+                ref="images"
+                @click="navigate(index)"
+                :alt="product.name"
+                class="block border cursor-pointer"
+              >
+            </li>
+          </ul>
+        </div>
+        <product-gallery
+          ref="gallery"
+          :offline="image"
+          :gallery="gallery"
+          :configuration="configuration"
+          :product="product"
+          @page-change="(page) => (currentGalleryPage = page)"
+        />
+      </section>
+      <section class="product--card">
+        <div>
+          <section class="row m0 between-xs">
+            <div class="col-xs-12 col-md-5 data">
+              <div class="seller--details">
+                <div class="seller-name">
+                  {{ product.seller }}
+                </div>
+                <router-link class="seller--about" to="/seller" exact>
+                  {{ $t("See more about this seller") }}
+                </router-link>
+              </div>
+              <div class="card--header">
+<<<<<<< HEAD
+                <h1 class="header--name" data-testid="productName" itemprop="name">
+                  <!-- {{ product.name | htmlDecode }} -->
+                  {{ productName | htmlDecode }}
+                  <!-- <web-share :title="product.name | htmlDecode" text="Check this product!" class="web-share" /> -->
+                  <web-share :title="productName | htmlDecode" text="Check this product!" class="web-share" />
+=======
+                <h1
+                  class="header--name"
+                  data-testid="productName"
+                  itemprop="name"
+                >
+                  {{ product.name | htmlDecode }}
+                  <web-share
+                    :title="product.name | htmlDecode"
+                    text="Check this product!"
+                    class="web-share"
+                  />
+>>>>>>> shyam1
+                </h1>
+                <div class="grade--area">
+                  <h2 class="header--grade">
+                    Grade - {{ productGrade }}
+                  </h2>
+                  <div class="grade-explainer" @click="openConditionsExplanation()">
+                    <!-- <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path id="i" d="M11.184 9.936H12.784V18H11.184V9.936ZM12.912 6.416V8.112H11.04V6.416H12.912Z" fill="#2D2D2D" fill-opacity="1" stroke="none" />
+                      <circle cx="12" cy="12" r="11" stroke="#2D2D2D" stroke-width="2" fill="none" /></svg> -->
+                    <div class="delivery--text">
+                      <div class="selectors--help" style="padding-left:3px">
+                        {{ $t('Grade Explainer') }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="header--brand" v-if="product.brand">
+                  {{ $t("Produced by") }}
+                  <router-link
+                    :to="localizedRoute(brandRoute)"
+                    class="brand--label"
+                    :class="'text-' + highlightColor"
+                  >
+                    {{ product.brand }}
+                  </router-link>
+                </div>
+                <div class="seller--rating">
+                  <star-rating :stars="getRating(3)" />
+                </div>
+              </div>
+              <div
+                itemprop="offers"
+                itemscope
+                itemtype="http://schema.org/Offer"
+              >
+                <meta
+                  itemprop="priceCurrency"
+                  :content="currentStore.i18n.currencyCode"
+                >
+                <meta
+                  itemprop="price"
+                  :content="parseFloat(product.priceInclTax).toFixed(2)"
+                >
+                <meta
+                  itemprop="availability"
+                  :content="structuredData.availability"
+                >
+                <meta itemprop="url" :content="product.url_path">
+                <div class="card--prices" v-if="product.type_id !== 'grouped'">
+                  <div
+                    class="h2 flex flex-col"
+                    v-if="
+                      product.special_price &&
+                        product.priceInclTax &&
+                        product.originalPriceInclTax
+                    "
+                  >
+                    <span
+                      class="price--special"
+                      :class="'text-' + highlightColor"
+                    >
+                      {{ (product.priceInclTax * product.qty) | price }}
+                    </span>
+                    <div class="price--original">
+                      <span class="original--text">
+                        {{ $t("Original Price") }}:
+                      </span>
+                      <span class="original--price">
+                        {{
+                          (product.originalPriceInclTax * product.qty) | price
+                        }}
+                      </span>
+                    </div>
+                    <div class="price--savings">
+                      <span class="savings--text"> {{ $t("You Save") }}: </span>
+                      <span class="savings--amount">
+                        {{
+                          (product.originalPriceInclTax - product.priceInclTax)
+                            | price
+                        }}
+                        ({{
+                          (
+                            ((product.originalPriceInclTax -
+                            product.priceInclTax) /
+                            product.originalPriceInclTax) *
+                            100
+                          ).toFixed(0)
+                        }}%)
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="h2 cl-mine-shaft weight-700"
+                    v-if="!product.special_price && product.priceInclTax"
+                  >
+                    {{
+                      product.qty > 0
+                        ? product.priceInclTax * product.qty
+                        : product.priceInclTax | price
+                    }}
+                  </div>
+                  <div class="card--misc">
+                    <div class="free--care">
+                      {{
+                        $t(`Free Hulii Care & ${shipping}`)
+                      }}
+                    </div>
+                    <view-more v-if="popupEnable" @close-popup="showPopup" />
+                    <div @click="showPopup(true)" class="more-info">
+                      {{
+                        $t("What’s this?")
+                      }}
+                    </div>
+                  </div>
+                </div>
+                <div class="card--freebie">
+                  <div class="freebie--care">
+                    <svg
+                      class="sc-1qcylkf-1 eAtuOD"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 40 40"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M22.252 8.33333H19.0595C12.8887 8.33333 7.88614 13.5567 7.88614 20H33.4253C33.4253 13.5567 28.4229 8.33333 22.252 8.33333ZM19.0595 5C11.1255 5 4.69374 11.7157 4.69374 20V23.3333H36.6178V20C36.6178 11.7157 30.1859 5 22.252 5H19.0595Z"
+                        fill="#333333"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M20.6581 8.33328L20.6557 8.33333L20.6534 8.33328C20.6352 8.33273 20.5574 8.33038 20.3675 8.47578C20.133 8.65542 19.7986 9.014 19.4085 9.65417C18.6152 10.9557 17.9182 12.8717 17.3509 15.0437C16.8992 16.773 16.5654 18.5225 16.3282 20H24.9832C24.7461 18.5225 24.4123 16.773 23.9606 15.0437C23.3933 12.8717 22.6963 10.9557 21.903 9.65417C21.513 9.014 21.1786 8.65542 20.944 8.47578C20.7541 8.33038 20.6763 8.33273 20.6581 8.33328ZM28.2179 20C27.4136 14.7138 25.3032 5 20.6557 5C16.0082 5 13.8979 14.7138 13.0936 20C12.7929 21.976 12.6748 23.3333 12.6748 23.3333H28.6368C28.6368 23.3333 28.5186 21.976 28.2179 20Z"
+                        fill="#333333"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M19.0595 31.6667V20H22.252V31.6667C22.252 34.4282 20.108 36.6667 17.4634 36.6667C14.8187 36.6667 12.6748 34.4282 12.6748 31.6667V30H15.8672V31.6667C15.8672 32.5872 16.5818 33.3333 17.4634 33.3333C18.345 33.3333 19.0595 32.5872 19.0595 31.6667Z"
+                        fill="#333333"
+                      />
+                    </svg>
+                    <div class="care--text">
+<<<<<<< HEAD
+                      <span class="text--free">{{ $t('12 Month Warranty') }}</span>
+                      <!-- <span>{{ $t('12 Month Warranty') }}</span> -->
+=======
+                      <span class="text--free">{{
+                        $t("Free Express Shipping")
+                      }}</span>
+>>>>>>> shyam1
+                    </div>
+                  </div>
+                  <div class="freebie--delivery">
+                    <svg
+                      class="freeShippingIcon"
+                      viewBox="0 0 40 40"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M21.5581 10.3333L11.9809 10.3337C11.0994 10.3337 10.3848 11.0799 10.3848 12.0004V15.3332H7.1924V12.0004C7.1924 9.23903 9.33622 7.0005 11.9808 7.00038L21.5579 7C24.2027 6.99988 26.3467 9.23842 26.3467 11.9999H30.3373L35.924 19.7776V30.3339H29.5392V27.0006H32.7315V21.9999H26.3467V25.3332H23.1544V12C23.1544 11.0795 22.4397 10.3333 21.5581 10.3333ZM26.3467 18.6666H31.1354L28.7411 15.3332H26.3467V18.6666ZM10.3848 27.0006V23.6666H7.1924V30.3339H11.981V27.0006H10.3848ZM18.3658 26.9999H23.1544V30.3332H18.3658V26.9999Z"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M15.1734 30.3339C16.0549 30.3339 16.7696 29.5877 16.7696 28.6672C16.7696 27.7467 16.0549 27.0006 15.1734 27.0006C14.2918 27.0006 13.5772 27.7467 13.5772 28.6672C13.5772 29.5877 14.2918 30.3339 15.1734 30.3339ZM15.1734 33.6672C17.8181 33.6672 19.9619 31.4286 19.9619 28.6672C19.9619 25.9057 17.8181 23.6672 15.1734 23.6672C12.5287 23.6672 10.3848 25.9057 10.3848 28.6672C10.3848 31.4286 12.5287 33.6672 15.1734 33.6672Z"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M26.3467 30.3339C27.2283 30.3339 27.9431 29.5877 27.9431 28.6672C27.9431 27.7467 27.2283 27.0006 26.3467 27.0006C25.4653 27.0006 24.7506 27.7467 24.7506 28.6672C24.7506 29.5877 25.4653 30.3339 26.3467 30.3339ZM26.3467 33.6672C28.9915 33.6672 31.1354 31.4286 31.1354 28.6672C31.1354 25.9057 28.9915 23.6672 26.3467 23.6672C23.7021 23.6672 21.5583 25.9057 21.5583 28.6672C21.5583 31.4286 23.7021 33.6672 26.3467 33.6672Z"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M15.1734 17.0006H4V13.6672H15.1734V17.0006Z"
+                        fill="#333333"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M16.7696 22.0006H5.59621V18.6672H16.7696V22.0006Z"
+                        fill="#333333"
+                      />
+                    </svg>
+                    <div class="delivery--text">
+<<<<<<< HEAD
+                      <span class="text--free">Free {{ product.shipping_type }} shipping: </span>
+                      <span>expect delivery in {{ product.shipping_from }} - {{ product.shipping_to }} working days</span>
+=======
+                      <span class="text--free">{{
+                        $t("Extended 24 Month Warranty")
+                      }}</span>
+>>>>>>> shyam1
+                      <!-- <span>{{ $t('delivery in ') }}{{ getDays('freeshipping', 'minDays') }}-{{ getDays('freeshipping', 'maxDays') }} {{ $t('working days') }}</span> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="card--divider" />
+                <div
+                  class="card--variants"
+                  v-if="product.type_id == 'configurable' && !loading"
+                >
+                  <div
+                    class="error"
+                    v-if="
+                      product.errors && Object.keys(product.errors).length > 0
+                    "
+                  >
+                    {{ product.errors | formatProductMessages }}
+                  </div>
+                  <div
+                    v-for="(option, index) in product.configurable_options"
+                    v-if="
+                      (!product.errors ||
+                        Object.keys(product.errors).length === 0) &&
+                        Object.keys(configuration).length > 0
+                    "
+                    :key="index"
+                  >
+                    <div
+                      class="variants--label"
+                      data-testid="variantsLabel"
+                      v-if="option.label !== 'Condition'"
+                    >
+                      {{ option.label }}:
+                      <span class="label--selected">
+                        {{
+                          configuration[
+                            option.attribute_code
+                              ? option.attribute_code
+                              : option.label.toLowerCase()
+                          ].label
+                        }}
+                      </span>
+                    </div>
+                    <div class="variants--selectors">
+                      <div v-if="option.label == 'Color'">
+                        <color-selector
+                          v-for="(c, i) in options[option.attribute_code]"
+                          v-if="isOptionAvailable(c)"
+                          :key="i"
+                          :id="c.id"
+                          :label="c.label"
+                          context="product"
+                          :code="option.attribute_code"
+                          :class="{
+                            active:
+                              c.id == configuration[option.attribute_code].id,
+                          }"
+                        />
+                      </div>
+                      <div class="sizes" v-else-if="option.label == 'Size'">
+                        <size-selector
+                          v-for="(s, i) in options[option.attribute_code]"
+                          v-if="isOptionAvailable(s)"
+                          :key="i"
+                          :id="s.id"
+                          :label="s.label"
+                          context="product"
+                          :code="option.attribute_code"
+                          class="mr10 mb10"
+                          :class="{
+                            active:
+                              s.id == configuration[option.attribute_code].id,
+                          }"
+                          v-focus-clean
+                        />
+                      </div>
+                      <div
+                        class="conditions"
+                        v-else-if="option.label == 'Condition'"
+                      >
+                        <div class="selectors--header">
+                          <div
+                            class="selectors--label"
+                            data-testid="variantsLabel"
+                          >
+                            {{ $t("Aesthetic Condition") }}
+                          </div>
+                          <div
+                            class="selectors--help"
+                            @click="openConditionsExplanation()"
+                          >
+                            {{ $t("Which one should I get?") }}
+                          </div>
+                        </div>
+                        <div class="selectors--options">
+                          <condition-selector
+                            v-for="(s, i) in conditionOptions"
+                            v-if="isOptionAvailable(s)"
+                            :key="i"
+                            :no-of-options="conditionOptions.length"
+                            :id="s.id"
+                            :label="s.label"
+                            :highlight="highlightColor"
+                            context="product"
+                            :code="s.attribute_code"
+                            class="mr10 mb10"
+                            :class="{
+                              active:
+                                s.id == configuration[s.attribute_code].id,
+                            }"
+                            v-focus-clean
+                          />
+                        </div>
+                      </div>
+                      <div :class="option.attribute_code" v-else>
+                        <generic-selector
+                          v-for="(s, i) in options[option.attribute_code]"
+                          v-if="isOptionAvailable(s)"
+                          :key="i"
+                          :id="s.id"
+                          :label="s.label"
+                          context="product"
+                          :code="option.attribute_code"
+                          class="mr10 mb10"
+                          :class="{
+                            active:
+                              s.id == configuration[option.attribute_code].id,
+                          }"
+                          v-focus-clean
+                        />
+                      </div>
+                      <span
+                        v-if="option.label == 'Size'"
+                        @click="openSizeGuide"
+                        class="p0 ml30 inline-flex middle-xs no-underline h5 action size-guide pointer cl-secondary"
+                      >
+                        <i class="pr5 material-icons">accessibility</i>
+                        <span>
+                          {{ $t("Size guide") }}
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="card--divider"
+                v-if="product.type_id == 'configurable' && !loading"
+              />
+<<<<<<< HEAD
+
+=======
+              <div class="grade-explainer" @click="openConditionsExplanation()">
+                <svg
+                  width="24px"
+                  height="24px"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    id="i"
+                    d="M11.184 9.936H12.784V18H11.184V9.936ZM12.912 6.416V8.112H11.04V6.416H12.912Z"
+                    fill="#2D2D2D"
+                    fill-opacity="1"
+                    stroke="none"
+                  />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="11"
+                    stroke="#2D2D2D"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                </svg>
+                <div class="delivery--text">
+                  <div class="selectors--help" style="padding-left: 0.5rem">
+                    {{ $t("Grade Explainer") }}
+                  </div>
+                </div>
+              </div>
+>>>>>>> shyam1
+              <product-links
+                v-if="product.type_id == 'grouped' && !loading"
+                :products="product.product_links"
+              />
+              <product-bundle-options
+                v-if="
+                  product.bundle_options &&
+                    product.bundle_options.length > 0 &&
+                    !loading
+                "
+                :product="product"
+              />
+              <product-custom-options
+                v-else-if="
+                  product.custom_options &&
+                    product.custom_options.length > 0 &&
+                    !loading
+                "
+                :product="product"
+              />
+              <div class="card--atc">
+                <add-to-cart
+                  :product="product"
+                  :price="product.priceInclTax"
+                  :disabled="$v.product.qty.$error && !$v.product.qty.minValue"
+                  class="atc--button"
+                />
+                <div class="atc--payment">
+                  <img
+                    src="/assets/components/payment/visa-grey.svg"
+                    v-lazy="'/assets/components/payment/visa-grey.svg'"
+                    alt="Visa"
+                  >
+                  <img
+                    src="/assets/components/payment/american-express-grey.svg"
+                    v-lazy="
+                      '/assets/components/payment/american-express-grey.svg'
+                    "
+                    alt="American Express"
+                  >
+                  <!-- <img
+                    src="/assets/components/payment/paypal-grey.svg"
+                    v-lazy="'/assets/components/payment/paypal-grey.svg'"
+                    alt="Paypal"
+                  > -->
+                  <img
+                    src="/assets/components/payment/mastercard-grey.svg"
+                    v-lazy="'/assets/components/payment/mastercard-grey.svg'"
+                    alt="Mastercard"
+                  >
+                </div>
+              </div>
+              <div class="card--divider" />
+              <div class="card--imapact--location">
+                <div>
+                  <div class="card--impact">
+                    <span class="logo" />
+                    <span class="info">
+                      <div class="title">{{ $t("Your impact") }}</div>
+                      <div class="desc">
+                        {{ $t("200g of e-waste avoided") }}
+                      </div>
+                    </span>
+                  </div>
+                  <div class="card--location">
+                    <span class="info">
+                      <div class="title">{{ $t("Item location") }}</div>
+                      <div class="desc">
+                        {{ $t("Paddington NSW") }}
+                      </div>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+      <section class="product--benefits">
+        <div class="title">
+          {{ $t("Shop with confidence. Hulii guarantees") }}
+        </div>
+        <div class="benefits--container">
+          <div class="benefits--item">
+            <h3>{{ $t("12 Months Warranty") }}</h3>
+          </div>
+          <div class="benefits--item">
+            <h3>{{ $t("Free Easy Returns") }}</h3>
+          </div>
+          <div class="benefits--item">
+            <h3>{{ $t("Free Shipping") }}</h3>
+          </div>
+        </div>
+      </section>
+      <section class="product--details">
+        <div class="details--container">
+          <div class="details--itb">
+            <h2 class="details--title" v-if="product.description">
+              {{ $t("Product Description") }}
+            </h2>
+            <div
+              class="details--description"
+              itemprop="description"
+              v-html="product.description"
+              v-if="product.description"
+            />
+            <br v-if="product.description">
+            <h2 class="details--title">
+              {{ $t("What's In The Box?") }}
+            </h2>
+
+            <div class="details--itb-contents">
+              <li class="" v-for="(content, index) in inTheBox" :key="index">
+                {{ content }}
+              </li>
+            </div>
+          </div>
+          <router-link class="product--seller--info" to="/seller" exact>
+            <h2 class="details--title">
+              {{ $t("Seller information") }}
+            </h2>
+            <div class="product--seller--name-main">
+              <span class="seller--name">{{ seller.name }}</span>
+              <span class="seller--rating"><star-rating /></span>
+              <span class="seller--review">{{
+                `
+                ${seller.total_review} ${$t("Reviews")}`
+              }}</span>
+            </div>
+            <div class="seller-description">
+              {{ seller.description }}
+            </div>
+            <div class="store-view">
+              {{ $t("View store") }}
+            </div>
+          </router-link>
+        </div>
+      </section>
+      <section class="product--quality">
+        <div class="details--quality">
+          <h2 class="details--title">
+            {{ $t("Quality Guaranteed") }}
+          </h2>
+          <div class="quality--contents">
+            <span
+              class="contents--intro"
+            >
+              {{ $t("This item is shipped by") }}
+            </span>
+            <span
+              class="contents--renewal-partner"
+            >
+              {{ product.seller || "Hulii Australia" }}.
+            </span>
+            <span class="contents--renewal-partner">
+              {{
+                $t(
+                  "The following items have been checked by this renewal partner prior to shipping the item"
+                )
+              }}:
+            </span>
+            <div class="flex flex-row mt-2">
+              <div
+                v-for="(g, groupIndex) in qaListItems"
+                :key="groupIndex"
+                class="w-1/2 flex flex-col"
+              >
+                <div
+                  class="flex flex-row items-center"
+                  v-for="(item, index) in g"
+                  :set="
+                    (ictr = groupIndex * qaListItems[0].length + (index + 1))
+                  "
+                  :key="index"
+                >
+                  √<span class="flex ml-2">{{ item }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        class="product--hood"
+        v-if="Object.keys(specifications).length !== 0"
+      >
+        <div class="product--divider" />
+        <div class="hood--container">
+          <h2 class="hood--title">
+            {{ $t("Under The Hood") }}
+          </h2>
+          <div class="hood--contents">
+            <div
+              class="contents--item"
+              v-for="(value, key) in specifications"
+              :key="key"
+            >
+              <div class="item--key font-semibold">
+                {{ key }}
+              </div>
+              <div class="item--value">
+                {{ value }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="product--review">
+        <div class="section--divider" />
+        <p class="product--review--heading">
+          {{ $t("Reviews") }}
+        </p>
+        <product-review />
+      </section>
+    </div>
+    <related-products type="upsell" :heading="$t('You Might Also Like')" />
+    <SizeGuide />
+  </div>
+</template>
+
+<script>
+<<<<<<< HEAD
+import { minValue } from 'vuelidate/lib/validators'
+import Product from '@vue-storefront/core/pages/Product'
+import VueOfflineMixin from 'vue-offline/mixin'
+import RelatedProducts from 'theme/components/hulii/blocks/Product/Related.vue'
+import AddToCart from 'theme/components/hulii/AddToCart.vue'
+import GenericSelector from 'theme/components/core/GenericSelector'
+import ConditionSelector from 'theme/components/hulii/blocks/Product/ConditionSelector'
+import ColorSelector from 'theme/components/hulii/blocks/Product/ColorSelector.vue'
+import SizeSelector from 'theme/components/core/SizeSelector.vue'
+import Breadcrumbs from 'theme/components/hulii/Breadcrumbs.vue'
+import ProductAttribute from 'theme/components/core/ProductAttribute.vue'
+import ProductLinks from 'theme/components/core/ProductLinks.vue'
+import ProductCustomOptions from 'theme/components/core/ProductCustomOptions.vue'
+import ProductBundleOptions from 'theme/components/core/ProductBundleOptions.vue'
+import ProductGallery from 'theme/components/hulii/ProductGallery'
+import PromotedOffers from 'theme/components/theme/blocks/PromotedOffers/PromotedOffers'
+import focusClean from 'theme/components/theme/directives/focusClean'
+import WebShare from '@vue-storefront/core/modules/social-share/components/WebShare'
+import BaseInputNumber from 'theme/components/core/blocks/Form/BaseInputNumber'
+import SizeGuide from 'theme/components/core/blocks/Product/SizeGuide'
+import { mapState } from 'vuex'
+import ProductMixin from 'theme/mixins/product'
+import countryInformation from 'theme/resource/country-information.json'
+import { currentStoreView } from '@vue-storefront/core/lib/multistore'
+import TrustpilotMicroScore from 'theme/components/hulii/blocks/Trustpilot/TrustpilotMicroScore'
+// import TrustpilotMicroCount from 'theme/components/hulii/blocks/Trustpilot/TrustpilotMicroCount'
+=======
+import { minValue } from 'vuelidate/lib/validators';
+import Product from '@vue-storefront/core/pages/Product';
+import VueOfflineMixin from 'vue-offline/mixin';
+import RelatedProducts from 'theme/components/hulii/blocks/Product/Related.vue';
+import AddToCart from 'theme/components/hulii/AddToCart.vue';
+import GenericSelector from 'theme/components/core/GenericSelector';
+import ConditionSelector from 'theme/components/hulii/blocks/Product/ConditionSelector';
+import ColorSelector from 'theme/components/hulii/blocks/Product/ColorSelector.vue';
+import SizeSelector from 'theme/components/core/SizeSelector.vue';
+import Breadcrumbs from 'theme/components/hulii/Breadcrumbs.vue';
+import ProductAttribute from 'theme/components/core/ProductAttribute.vue';
+import ProductLinks from 'theme/components/core/ProductLinks.vue';
+import ProductCustomOptions from 'theme/components/core/ProductCustomOptions.vue';
+import ProductBundleOptions from 'theme/components/core/ProductBundleOptions.vue';
+import ProductGallery from 'theme/components/hulii/ProductGallery';
+import PromotedOffers from 'theme/components/theme/blocks/PromotedOffers/PromotedOffers';
+import focusClean from 'theme/components/theme/directives/focusClean';
+import WebShare from '@vue-storefront/core/modules/social-share/components/WebShare';
+import BaseInputNumber from 'theme/components/core/blocks/Form/BaseInputNumber';
+import SizeGuide from 'theme/components/core/blocks/Product/SizeGuide';
+import { mapState } from 'vuex';
+import ProductMixin from 'theme/mixins/product';
+import countryInformation from 'theme/resource/country-information.json';
+import { currentStoreView } from '@vue-storefront/core/lib/multistore';
+import TrustpilotMicroScore from 'theme/components/hulii/blocks/Trustpilot/TrustpilotMicroScore';
+import TrustpilotMicroCount from 'theme/components/hulii/blocks/Trustpilot/TrustpilotMicroCount';
+import dummy from '../resource/dummy.json';
+import StarRating from '../components/hulii/StarRating.vue';
+import ProductReview from '../components/hulii/ProductReview.vue';
+import ViewMore from '../components/hulii/ViewMore.vue';
+import LoadMore from '../components/hulii/LoadMore.vue';
+>>>>>>> shyam1
+
+export default {
+  components: {
+    WishlistButton: () =>
+      import(
+        /* webpackChunkName: "wishlist" */ 'theme/components/core/blocks/Wishlist/AddToWishlist'
+      ),
+    AddToCart,
+    Breadcrumbs,
+    ColorSelector,
+    GenericSelector,
+    ProductAttribute,
+    ProductBundleOptions,
+    ProductCustomOptions,
+    ProductGallery,
+    ProductLinks,
+    PromotedOffers,
+    RelatedProducts,
+    SizeSelector,
+    WebShare,
+    BaseInputNumber,
+    SizeGuide,
+    ConditionSelector,
+<<<<<<< HEAD
+    TrustpilotMicroScore
+    // TrustpilotMicroCount
+=======
+    TrustpilotMicroScore,
+    TrustpilotMicroCount,
+    StarRating,
+    ProductReview,
+    ViewMore,
+    LoadMore
+>>>>>>> shyam1
+  },
+  mixins: [Product, VueOfflineMixin, ProductMixin],
+  data () {
+    const storeView = currentStoreView();
+    return {
+      detailsOpen: false,
+      currentGalleryPage: 0,
+      store: storeView.storeCode,
+<<<<<<< HEAD
+      productName: null,
+      productGrade: null
+    }
+=======
+      seller: dummy.seller,
+      popupEnable: false
+    };
+>>>>>>> shyam1
+  },
+  directives: { focusClean },
+  computed: {
+    ...mapState({
+      highlightColor: (state) => state.ui.highlightColor
+    }),
+    structuredData () {
+      return {
+        availability: this.product.stock.is_in_stock ? 'InStock' : 'OutOfStock'
+      };
+    },
+    brandRoute () {
+      let url;
+      if (this.product.brand) {
+        url = '/b/' + this.product.brand.toLowerCase();
+      } else {
+        url = '';
+      }
+      return url;
+    },
+    shipping () {
+      return this.popupEnable ? 'Express Shipping' : 'Shipping';
+    }
+  },
+  beforeMount () {
+<<<<<<< HEAD
+    this.$bus.$on('carousel-page-change', this.selectThumbnail)
+    this.splitGrade();
+=======
+    this.$bus.$on('carousel-page-change', this.selectThumbnail);
+>>>>>>> shyam1
+  },
+  beforeDestroy () {
+    this.$bus.$off('carousel-page-change', this.selectThumbnail);
+  },
+  methods: {
+    getDays (methodCode, type) {
+      let days = '';
+      let country = this.store === '' ? 'us' : this.store;
+      if (methodCode === 'freeshipping') {
+        days = countryInformation[country]['shipping']['standard'][type] - 1;
+        return days;
+      } else if (methodCode === 'flatrate') {
+        days = countryInformation[country]['shipping']['express'][type] - 1;
+        return days;
+      }
+    },
+    selectThumbnail (index) {
+      this.currentGalleryPage = index;
+    },
+    navigate (index) {
+      if (this.$refs.gallery.$refs.galleryCarousel.$refs.carousel) {
+        this.$refs.gallery.$refs.galleryCarousel.$refs.carousel.goToPage(index);
+      }
+    },
+    showDetails (event) {
+      this.detailsOpen = true;
+      event.target.classList.add('hidden');
+    },
+    notifyOutStock () {
+      this.$store.dispatch('notification/spawnNotification', {
+        type: 'error',
+        message: this.$t(
+          'The product is out of stock and cannot be added to the cart!'
+        ),
+        action1: { label: this.$t('OK') }
+      });
+    },
+    notifyWrongAttributes () {
+      this.$store.dispatch('notification/spawnNotification', {
+        type: 'warning',
+        message: this.$t(
+          'No such configuration for the product. Please do choose another combination of attributes.'
+        ),
+        action1: { label: this.$t('OK') }
+      });
+    },
+    openSizeGuide () {
+<<<<<<< HEAD
+      this.$bus.$emit('modal-show', 'modal-sizeguide')
+    },
+    splitGrade () {
+      let prodString = new String(this.product.name);
+
+      if (prodString.indexOf('- Pristine') > -1) {
+        let gradeIndex = prodString.indexOf('- Pristine');
+        this.productName = prodString.replace('- Pristine', '');
+        this.productGrade = 'Pristine';
+      }
+      if (prodString.indexOf('- Excellent') > -1) {
+        let gradeIndex = prodString.indexOf('- Excellent');
+        this.productName = prodString.replace('- Excellent', '');
+        this.productGrade = 'Excellent';
+      }
+      if (prodString.indexOf('- Good') > -1) {
+        let gradeIndex = prodString.indexOf('- Good');
+        this.productName = prodString.replace('- Good', '');
+        this.productGrade = 'Good';
+      }
+      if (prodString.indexOf('- Fair') > -1) {
+        let gradeIndex = prodString.indexOf('- Fair');
+        this.productName = prodString.replace('- Fair', '');
+        this.productGrade = 'Fair';
+      }
+=======
+      this.$bus.$emit('modal-show', 'modal-sizeguide');
+    },
+    showPopup (value) {
+      console.log('enablePOP||', value);
+      this.popupEnable = value;
+>>>>>>> shyam1
+    }
+  },
+  validations: {
+    product: {
+      qty: {
+        minValue: minValue(1)
+      }
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+@import "~theme/css/variables/colors";
+@import "~theme/css/helpers/functions/color";
+$color-primary: color(primary);
+$color-tertiary: color(tertiary);
+$color-secondary: color(secondary);
+$color-white: color(white);
+$bg-secondary: color(secondary, $colors-background);
+
+#product {
+  margin-top: 20px;
+}
+
+.product {
+  position: relative;
+  grid-template-areas:
+    "b b b b"
+    "t t t t"
+    "i i i i"
+    "c c c c"
+    "benefits benefits benefits benefits"
+    "details details details details"
+    "product-quality product-quality product-quality product-quality"
+    "hood hood hood hood"
+    "product-review product-review product-review product-review";
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 8px;
+
+  .product--breadcrumb {
+    justify-self: flex-start;
+    margin-bottom: 18px;
+    grid-area: b;
+    display: flex;
+    box-sizing: border-box;
+    position: relative;
+    flex-wrap: wrap;
+  }
+
+  .product--trustpilot {
+    @apply justify-center;
+    margin-bottom: 18px;
+    grid-area: t;
+    display: flex;
+    box-sizing: border-box;
+    position: relative;
+    flex-wrap: wrap;
+  }
+
+  .product--gallery {
+    width: auto;
+    grid-area: i;
+    display: flex;
+    visibility: visible;
+    opacity: 1;
+    transition-property: opacity, visibility;
+    transition-duration: 0ms;
+    transition-delay: 200ms;
+
+    .product--thumbnails {
+      display: none;
+      margin-right: 16px;
+      max-width: 98px;
+      li {
+        padding: 5px;
+
+        &.chosen-thumbail {
+          border-width: 2px;
+          border-style: solid;
+          border-image: initial;
+          border-radius: 15px;
+          border-color: rgb(225, 225, 225);
+        }
+        img {
+          @apply w-full;
+        }
+      }
+    }
+  }
+
+  .product--card {
+    grid-area: c;
+    .seller--details {
+      .seller-name {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+      .seller--about {
+        color: #6c6b6b;
+        text-decoration-line: underline;
+        font-size: 14px;
+        cursor: pointer;
+      }
+    }
+    .card--header {
+      @apply mb-6;
+
+      .header--name {
+        display: flex;
+        text-align: left;
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .grade--area {
+        display: flex;
+      }
+
+      .header--grade {
+        display: flex;
+        text-align: left;
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+        color: #56CCF2;
+      }
+
+      .header--brand {
+        margin-bottom: 0.5rem;
+        .brand--label {
+          font-weight: 600;
+        }
+      }
+    }
+
+    .card--prices {
+      @apply mb-6;
+      .price--special {
+        font-weight: 700;
+      }
+      .price--original {
+        @apply text-grey;
+        line-height: 12px;
+        .original--text {
+          text-decoration: none;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          margin-right: 5px;
+        }
+        .original--price {
+          text-decoration: line-through;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+        }
+      }
+      .price--savings {
+        line-height: 12px;
+        .savings--text {
+          text-decoration: none;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          margin-right: 5px;
+          color: black;
+          line-height: 12px;
+        }
+        .savings--amount {
+          text-decoration: none;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: black;
+        }
+      }
+      .card--misc {
+        margin-top: 0.5rem;
+        display: flex;
+        .free--care {
+          color: #2d2d2d;
+          margin-right: 1rem;
+          width: 20vw;
+        }
+        .more-info {
+          color: #6c6b6b;
+          text-decoration-line: underline;
+          cursor: pointer;
+        }
+      }
+    }
+    .card--freebie {
+      @apply flex flex-col mb-6;
+      .freebie--care {
+        @apply flex flex-row mb-1;
+
+        svg {
+          @apply mr-2;
+        }
+
+        .care--text {
+          align-self: center;
+          .text--free {
+            color: #2d2d2d;
+          }
+        }
+      }
+      .freebie--delivery {
+        @apply flex flex-row;
+
+        svg {
+          height: 24px;
+          width: 24px;
+          @apply mr-2;
+        }
+
+        .delivery--text {
+          align-self: center;
+          .text--free {
+            color: #2d2d2d;
+          }
+        }
+      }
+    }
+    .grade-explainer {
+      display: inline-flex;
+      flex-direction: row;
+      // width: 100%;
+      align-items: flex-end;
+      justify-content: left;
+      cursor: pointer;
+<<<<<<< HEAD
+      padding-bottom:10px;
+      padding-left: 10px;
+=======
+      padding-bottom: 10px;
+>>>>>>> shyam1
+    }
+    .card--divider {
+      @apply w-full bg-grey-light mb-6;
+      height: 1px;
+    }
+    .card--variants {
+      @apply mb-6;
+      .variants--label {
+        @apply mb-4;
+        font-weight: 800;
+        line-height: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        font-size: 12px;
+
+        .label--selected {
+          font-weight: 500;
+        }
+      }
+      .variants--selectors {
+        .selectors--header {
+          @apply flex flex-col mb-4;
+          .selectors--label {
+            display: flex;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            align-items: center;
+          }
+          .selectors--help {
+            @apply text-grey cursor-pointer;
+            font-weight: 600;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+        .selectors--options {
+          @apply flex flex-row justify-between;
+          overflow-x: auto;
+        }
+      }
+    }
+    .card--atc {
+      @apply w-full mb-4;
+      .atc--button {
+        @apply w-full mb-4;
+      }
+      .atc--payment {
+        width: 80%;
+        margin: 0px auto;
+        display: flex;
+        justify-content: space-between;
+        img {
+          width: auto;
+          opacity: 0.575;
+        }
+      }
+    }
+    .card--imapact--location {
+      div {
+        display: flex;
+        .card--impact {
+          border-radius: 4px;
+          background-color: rgba(29, 177, 157, 0.1);
+          padding: 1rem;
+          margin-right: 1rem;
+          width: 225px;
+        }
+        .card--location {
+          border: 1px solid #efefef;
+          box-sizing: border-box;
+          border-radius: 4px;
+          padding: 1rem;
+          width: 225px;
+        }
+        .title {
+          font-weight: 600;
+          padding-bottom: 0.25rem;
+        }
+      }
+    }
+  }
+  .product--divider {
+    @apply w-full bg-grey-light mb-8;
+    height: 1px;
+  }
+  .product--benefits {
+    grid-area: benefits / benefits / benefits / benefits;
+    box-sizing: border-box;
+    position: relative;
+    .title {
+      color: #2d2d2d;
+    }
+    .benefits--container {
+      @apply w-full;
+      display: grid;
+      grid-template-columns: auto auto auto;
+      visibility: visible;
+      opacity: 1;
+      transform: scale(1);
+      gap: 16px 16px;
+      justify-items: start;
+      transition: all 0.3s cubic-bezier(0, 0, 0.2, 1) 0s;
+
+      .benefits--item {
+        @apply items-center;
+        user-select: none;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px,
+          rgba(0, 0, 0, 0.13) 0px 0px 0px;
+        transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        border-radius: 8px;
+        h3 {
+          font-size: 16px;
+        }
+
+        img {
+          max-width: 70px;
+          height: 100px;
+        }
+
+        &.item--shipping {
+          @apply text-hulii-pink;
+        }
+        &.item--warranty {
+          @apply text-hulii-purple;
+        }
+        &.item--returns {
+          @apply text-hulii-yellow;
+        }
+      }
+    }
+  }
+  .product--details {
+    padding: 2rem 0;
+    grid-area: details;
+    background-color: #fafafb;
+    box-shadow: -20rem 0 #fafafb, 40rem 0 #fafafb;
+
+    .details--container {
+      grid-template-areas:
+        "inthebox"
+        "seller-info";
+      grid-row-gap: 32px;
+      display: grid;
+      grid-column-gap: 48px;
+
+      .details--itb {
+        grid-area: inthebox;
+
+        .details--description {
+        }
+        .details--itb-contents {
+        }
+      }
+      .product--seller--info {
+        grid-area: seller-info;
+        cursor: pointer;
+        .product--seller--name-main {
+          display: flex;
+          span {
+            padding-right: 8px;
+          }
+          .seller--review {
+            font-size: 0.9rem;
+            color: #6c6b6b;
+            text-decoration-line: underline;
+          }
+        }
+        .seller-description {
+          color: #6c6b6b;
+          margin-top: 15px;
+        }
+        .store-view {
+          margin-top: 15px;
+          color: #372768;
+          font-weight: 600;
+        }
+      }
+      .details--title {
+        @apply text-h2 mt-0;
+      }
+    }
+  }
+  .product--quality {
+    @apply mb-8;
+    grid-area: product-quality;
+    .details--title{
+      font-size: 24px;
+    }
+    .quality--contents{
+      width: 50%;
+    }
+  }
+  .product--review {
+    @apply mb-8;
+    grid-area: product-review;
+    .product--review--heading {
+      font-size: 24px;
+      color: #2d2d2d;
+      font-weight: 800;
+    }
+  }
+  .product--hood {
+    grid-area: hood;
+    .hood--container {
+      .hood--title {
+        @apply text-h2 mt-0;
+      }
+      .hood--contents {
+        @apply flex flex-wrap;
+        > .contents--item {
+          @apply flex flex-col w-1/2 mb-8;
+        }
+      }
+    }
+  }
+
+  @screen sm {
+    .product--card {
+      .card--variants .variants--selectors .selectors--header {
+        @apply flex-row justify-between;
+      }
+    }
+  }
+  @screen md {
+    .product--hood {
+      .hood--container {
+        .hood--contents {
+          > .contents--item {
+            @apply w-1/4;
+          }
+        }
+      }
+    }
+  }
+  @screen lg {
+    grid-template-areas:
+      "b b b b b b b b b t t t"
+      "i i i i i i . c c c c c"
+      "benefits benefits benefits benefits benefits benefits benefits . product-detail-card product-detail-card product-detail-card product-detail-card"
+      "details details details details details details details details details details details details"
+      "product-quality product-quality product-quality product-quality product-quality product-quality product-quality product-quality product-quality product-quality product-quality product-quality"
+      "hood hood hood hood hood hood hood hood hood hood hood hood"
+      "product-review product-review product-review product-review product-review product-review product-review product-review product-review product-review product-review product-review";
+    grid-template-columns: repeat(12, 1fr);
+    grid-column-gap: 16px;
+
+    .product--trustpilot {
+      @apply justify-end;
+    }
+    .product--thumbnails {
+      display: flex;
+    }
+    .product--gallery,
+    .product--card {
+      margin: 24px 0px;
+    }
+    .product--benefits {
+      @apply mt-0 mb-8;
+
+      h3 {
+        // font-size: 1.5rem !important;
+      }
+    }
+    .product--details {
+      .details--container {
+        grid-template-areas: "inthebox seller-info";
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+}
+.related-products {
+  @apply mb-8;
+}
+.section--divider {
+  @apply w-full bg-grey-light mb-8;
+  height: 1px;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+  padding-bottom: 15px;
+}
+.data {
+  @media (max-width: 767px) {
+    border-bottom: 1px solid $bg-secondary;
+  }
+}
+
+.image {
+  @media (max-width: 1023px) {
+    margin-bottom: 20px;
+  }
+}
+
+.product-name {
+  @media (max-width: 767px) {
+    font-size: 36px;
+  }
+}
+
+.price {
+  @media (max-width: 767px) {
+    color: $color-primary;
+  }
+}
+
+.variants-label {
+  @media (max-width: 767px) {
+    font-size: 14px;
+  }
+}
+
+.variants-wrapper {
+  @media (max-width: 767px) {
+    padding-bottom: 30px;
+  }
+
+  .sizes {
+    @media (max-width: 767px) {
+      width: 100%;
+    }
+  }
+
+  .size-guide {
+    height: 40px;
+    @media (max-width: 767px) {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+}
+
+.product-top-section {
+  @media (max-width: 767px) {
+    padding: 0;
+    background-color: $color-white;
+  }
+}
+
+.add-to-buttons {
+  @media (max-width: 767px) {
+    padding-top: 30px;
+    margin-bottom: 40px;
+  }
+}
+
+.details {
+  @media (max-width: 767px) {
+    padding: 50px 15px 15px;
+  }
+}
+
+.details-title {
+  padding: 0 8px;
+
+  @media (max-width: 767px) {
+    font-size: 18px;
+    margin: 0;
+  }
+}
+
+.details-wrapper {
+  @media (max-width: 767px) {
+    position: relative;
+    max-height: 140px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    font-size: 14px;
+  }
+
+  &--open {
+    max-height: none;
+  }
+}
+
+.details-overlay {
+  @media (max-width: 767px) {
+    position: absolute;
+    height: 75%;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    cursor: pointer;
+    background: linear-gradient(rgba($color-white, 0), rgba($color-white, 1));
+    &.hidden {
+      display: none;
+    }
+  }
+}
+
+.price-original {
+  text-decoration: line-through;
+}
+
+.action {
+  &:hover {
+    color: $color-tertiary;
+  }
+}
+
+.attributes {
+  list-style-type: none;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.fade-enter,
+.fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.product-image {
+  mix-blend-mode: multiply;
+  width: 460px;
+}
+
+.web-share {
+  float: right;
+}
+</style>
